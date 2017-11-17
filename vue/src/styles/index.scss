@@ -1,0 +1,74 @@
+@import './element-ui.scss';
+@import './mixin.scss';
+@import './btn.scss';
+@import './sidebar.scss';
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+html {
+  box-sizing: border-box;
+  cursor: default;
+}
+*,
+*:before,
+*:after {
+  /*box-sizing: inherit;*/
+}
+a:focus,
+a:active {
+  outline: none;
+}
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+//vue router transition css
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .2s ease
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+//main-container全局样式
+.app-main {
+  min-height: 100%
+}
+.app-container {
+  padding: 20px;
+}
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.filter-container {
+  margin-bottom: 5px;
+}
+.table-logo {
+  width: 41px;
+  margin: 10px 0;
+  vertical-align: middle;
+}
+.el-tag{
+  cursor: default;
+}
