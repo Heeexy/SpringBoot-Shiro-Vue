@@ -3,11 +3,7 @@
     <div class="filter-container">
       <el-form>
         <el-form-item>
-          <el-input @keyup.enter.native="handleFilter" style="width: 200px;" placeholder="作家名称"
-                    v-model="listQuery.name">
-          </el-input>
-          <el-button type="primary" icon="search" @click="handleFilter()">搜索</el-button>
-          <el-button type="primary" icon="plus" @click="showCreate" v-if="hasPerm('writer:add')">添加
+          <el-button type="primary" icon="plus" @click="showCreate" v-if="hasPerm('article:add')">添加
           </el-button>
         </el-form-item>
       </el-form>
@@ -19,13 +15,13 @@
           <span v-text="getIndex(scope.$index)"> </span>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="writerName" label="作家" style="width: 60px;"></el-table-column>
+      <el-table-column align="center" prop="content" label="文章" style="width: 60px;"></el-table-column>
       <el-table-column align="center" label="创建时间" width="170">
         <template scope="scope">
           <span>{{scope.row.createTime}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="管理" width="200" v-if="hasPerm('writer:update')">
+      <el-table-column align="center" label="管理" width="200" v-if="hasPerm('article:update')">
         <template scope="scope">
           <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)">修改</el-button>
         </template>
@@ -41,17 +37,17 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form class="small-space" :model="tempWriter" label-position="left" label-width="60px"
+      <el-form class="small-space" :model="tempArticle" label-position="left" label-width="60px"
                style='width: 300px; margin-left:50px;'>
-        <el-form-item label="名称">
-          <el-input type="text" v-model="tempWriter.writerName">
+        <el-form-item label="文章">
+          <el-input type="text" v-model="tempArticle.content">
           </el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="success" @click="createWriter">创 建</el-button>
-        <el-button type="primary" v-else @click="updateWriter">修 改</el-button>
+        <el-button v-if="dialogStatus=='create'" type="success" @click="createArticle">创 建</el-button>
+        <el-button type="primary" v-else @click="updateArticle">修 改</el-button>
       </div>
     </el-dialog>
   </div>
@@ -72,11 +68,11 @@
         dialogFormVisible: false,
         textMap: {
           update: '编辑',
-          create: '创建作家'
+          create: '创建文章'
         },
-        tempWriter: {
-          writerName: "",
-          writerId: ""
+        tempArticle: {
+          id: "",
+          content: ""
         }
       }
     },
@@ -86,12 +82,12 @@
     methods: {
       getList() {
         //查询列表
-        if (!this.hasPerm('writer:list')) {
+        if (!this.hasPerm('article:list')) {
           return
         }
         this.listLoading = true;
         this.api({
-          url: "/writer/listWriter",
+          url: "/article/listArticle",
           method: "get",
           params: this.listQuery
         }).then(data => {
@@ -110,52 +106,45 @@
         this.listQuery.pageNum = val
         this.getList();
       },
-      handleFilter() {
-        //查询事件
-        this.listQuery.pageNum = 1
-        this.getList()
-      },
       getIndex($index) {
         //表格序号
         return (this.listQuery.pageNum - 1) * this.listQuery.pageRow + $index + 1
       },
       showCreate() {
         //显示新增对话框
-        this.tempWriter.writerId = "";
-        this.tempWriter.writerName = "";
+        this.tempArticle.content = "";
         this.dialogStatus = "create"
         this.dialogFormVisible = true
       },
       showUpdate($index) {
-        //显示新增对话框
-        this.tempWriter.writerId = this.list[$index].writerId;
-        this.tempWriter.writerName = this.list[$index].writerName;
+        //显示修改对话框
+        this.tempArticle.id = this.list[$index].id;
+        this.tempArticle.content = this.list[$index].content;
         this.dialogStatus = "update"
         this.dialogFormVisible = true
       },
-      createWriter() {
-        //保存新作家
+      createArticle() {
+        //保存新文章
         this.api({
-          url: "/writer/addWriter",
+          url: "/article/addArticle",
           method: "post",
-          data: this.tempWriter
-        }).then(data => {
+          data: this.tempArticle
+        }).then(() => {
           this.getList();
           this.dialogFormVisible = false
         })
       },
-      updateWriter() {
-        //修改作家
+      updateArticle() {
+        //修改文章
         this.api({
-          url: "/writer/updateWriter",
+          url: "/article/updateArticle",
           method: "post",
-          data: this.tempWriter
-        }).then(data => {
+          data: this.tempArticle
+        }).then(() => {
           this.getList();
           this.dialogFormVisible = false
         })
       },
-
     }
   }
 </script>

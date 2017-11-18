@@ -39,7 +39,7 @@ export const asyncRouterMap = [
     name: '功能模块',
     icon: 'system',
     children: [
-      {path: 'writer', component: _import('writer/writer'), name: '作家', menu: 'writer'},
+      {path: 'article', component: _import('article/article'), name: '文章', menu: 'article'},
     ]
   },
   {

@@ -15,5 +15,4 @@
               AND u.password = #{password}
     </select>
 
-
 </mapper>
