@@ -41,9 +41,9 @@
       }
 ```
 
-​	为什么不在登录的时候一并返回呢? 因为页面F5刷新的时候,vuex信息会丢失,所以需要重新查询一遍这些权限信息. 当然,把权限信息存入cookie也可以解决.
+为什么不在登录的时候一并返回呢? 因为页面F5刷新的时候,vuex信息会丢失,所以需要重新查询一遍这些权限信息. 当然,把权限信息存入cookie也可以解决.
 
-​	拿到userPermission后,调用生成动态路由的方法
+拿到userPermission后,调用生成动态路由的方法
 
 ```javascript
 store.dispatch('GenerateRoutes', userPermission).then(() => {
@@ -65,4 +65,3 @@ export function hasPermission(permission) {
   return myPermissions.indexOf(permission) > -1;
 }
 ```
-
