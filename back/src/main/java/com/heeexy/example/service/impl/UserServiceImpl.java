@@ -120,9 +120,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public JSONObject updateRole(JSONObject jsonObject) {
         String roleId = jsonObject.getString("roleId");
-        System.out.println("jsonObject的值为:" + jsonObject);
         List<Integer> newPerms = (List<Integer>) jsonObject.get("permissions");
-        System.out.println("ids的值为:" + newPerms);
         JSONObject roleInfo = userDao.getRoleAllInfo(jsonObject);
         Set<Integer> oldPerms = (Set<Integer>) roleInfo.get("permissionIds");
         //修改角色名称
@@ -160,7 +158,6 @@ public class UserServiceImpl implements UserService {
                 waitInsert.add(newPerm);
             }
         }
-        System.out.println("waitInsert的值为:" + waitInsert);
         if (waitInsert.size() > 0) {
             userDao.insertRolePermission(roleId, waitInsert);
         }
@@ -180,7 +177,6 @@ public class UserServiceImpl implements UserService {
                 waitRemove.add(oldPerm);
             }
         }
-        System.out.println("waitRemove的值为:" + waitRemove);
         if (waitRemove.size() > 0) {
             userDao.removeOldPermission(roleId, waitRemove);
         }
