@@ -1,6 +1,6 @@
-﻿# Host: localhost  (Version 5.7.11-log)
-# Date: 2017-11-18 14:00:25
-# Generator: MySQL-Front 5.3  (Build 8.6)
+﻿# Host: 127.0.0.1  (Version 5.6.35)
+# Date: 2017-11-22 16:38:47
+# Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -16,7 +16,7 @@ CREATE TABLE `article` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1.有效  2无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='发布号作者表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='发布号作者表';
 
 #
 # Data for table "article"
@@ -35,6 +35,7 @@ CREATE TABLE `sys_permission` (
   `menu_name` varchar(255) DEFAULT '' COMMENT '菜单的中文释义',
   `permission_code` varchar(255) DEFAULT '' COMMENT '权限的代码/通配符,对应代码中@RequiresPermissions 的value',
   `permission_name` varchar(255) DEFAULT '' COMMENT '本权限的中文释义',
+  `required_permission` tinyint(1) DEFAULT '2' COMMENT '是否本菜单必选权限, 1.必选 2非必选 通常是"列表"权限是必选',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台权限表';
 
@@ -42,7 +43,7 @@ CREATE TABLE `sys_permission` (
 # Data for table "sys_permission"
 #
 
-INSERT INTO `sys_permission` VALUES (101,'article','文章管理','article:list','查看'),(102,'article','文章管理','article:add','新增'),(103,'article','文章管理','article:update','修改'),(601,'user','用户','user:list','查看'),(602,'user','用户','user:add','新增'),(603,'user','用户','user:update','修改'),(701,'role','角色权限','role:list','查看'),(702,'role','角色权限','role:add','新增'),(703,'role','角色权限','role:update','修改');
+INSERT INTO `sys_permission` VALUES (101,'article','文章管理','article:list','列表',1),(102,'article','文章管理','article:add','新增',2),(103,'article','文章管理','article:update','修改',2),(601,'user','用户','user:list','列表',1),(602,'user','用户','user:add','新增',2),(603,'user','用户','user:update','修改',2),(701,'role','角色权限','role:list','列表',1),(702,'role','角色权限','role:add','新增',2),(703,'role','角色权限','role:update','修改',2),(704,'role','角色权限','role:delete','删除',2);
 
 #
 # Structure for table "sys_role"
@@ -52,6 +53,9 @@ DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(20) DEFAULT NULL COMMENT '角色名',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1有效  2无效',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台角色表';
 
@@ -59,7 +63,7 @@ CREATE TABLE `sys_role` (
 # Data for table "sys_role"
 #
 
-INSERT INTO `sys_role` VALUES (1,'管理员'),(2,'作家');
+INSERT INTO `sys_role` VALUES (1,'管理员','2017-11-22 16:24:34','2017-11-22 16:24:52','1'),(2,'作家','2017-11-22 16:24:34','2017-11-22 16:24:52','1'),(3,'程序员','2017-11-22 16:28:47','2017-11-22 16:28:47','1');
 
 #
 # Structure for table "sys_role_permission"
@@ -70,6 +74,9 @@ CREATE TABLE `sys_role_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL COMMENT '角色id',
   `permission_id` int(11) DEFAULT NULL COMMENT '权限id',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效 1有效     2无效',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
 
@@ -77,7 +84,7 @@ CREATE TABLE `sys_role_permission` (
 # Data for table "sys_role_permission"
 #
 
-INSERT INTO `sys_role_permission` VALUES (1,2,101),(2,2,102);
+INSERT INTO `sys_role_permission` VALUES (1,2,101,'2017-11-22 16:26:21','2017-11-22 16:26:32','1'),(2,2,102,'2017-11-22 16:26:21','2017-11-22 16:26:32','1'),(5,2,602,'2017-11-22 16:28:28','2017-11-22 16:28:28','1'),(6,2,601,'2017-11-22 16:28:28','2017-11-22 16:28:28','1'),(7,2,603,'2017-11-22 16:28:28','2017-11-22 16:28:28','1'),(8,2,703,'2017-11-22 16:28:28','2017-11-22 16:28:28','1'),(9,2,701,'2017-11-22 16:28:28','2017-11-22 16:28:28','1'),(10,2,702,'2017-11-22 16:28:28','2017-11-22 16:28:28','1'),(11,2,704,'2017-11-22 16:28:31','2017-11-22 16:28:31','1'),(12,2,103,'2017-11-22 16:28:31','2017-11-22 16:28:31','1'),(13,3,601,'2017-11-22 16:28:47','2017-11-22 16:28:47','1'),(14,3,701,'2017-11-22 16:28:47','2017-11-22 16:28:47','1'),(15,3,702,'2017-11-22 16:35:01','2017-11-22 16:35:01','1'),(16,3,704,'2017-11-22 16:35:01','2017-11-22 16:35:01','1'),(17,3,102,'2017-11-22 16:35:01','2017-11-22 16:35:01','1'),(18,3,101,'2017-11-22 16:35:01','2017-11-22 16:35:01','1'),(19,3,603,'2017-11-22 16:35:01','2017-11-22 16:35:01','1');
 
 #
 # Structure for table "sys_user"
@@ -94,10 +101,10 @@ CREATE TABLE `sys_user` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1有效  2无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10007 DEFAULT CHARSET=utf8 COMMENT='运营后台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=10008 DEFAULT CHARSET=utf8 COMMENT='运营后台用户表';
 
 #
 # Data for table "sys_user"
 #
 
-INSERT INTO `sys_user` VALUES (10003,'admin','123456','超级用户23',1,'2017-10-30 11:52:38','2017-11-17 23:51:40','1'),(10004,'user','123456','莎士比亚',2,'2017-10-30 16:13:02','2017-11-18 02:48:24','1'),(10005,'aaa','123456','abba',1,'2017-11-15 14:02:56','2017-11-17 23:51:42','1');
+INSERT INTO `sys_user` VALUES (10003,'admin','123456','超级用户23',1,'2017-10-30 11:52:38','2017-11-17 23:51:40','1'),(10004,'user','123456','莎士比亚',2,'2017-10-30 16:13:02','2017-11-18 02:48:24','1'),(10005,'aaa','123456','abba',1,'2017-11-15 14:02:56','2017-11-17 23:51:42','1'),(10007,'test','123456','就看看列表',3,'2017-11-22 16:29:41','2017-11-22 16:29:41','1');
