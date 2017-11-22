@@ -3,6 +3,7 @@ package com.heeexy.example.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.heeexy.example.service.UserService;
 import com.heeexy.example.util.CommonUtil;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +47,68 @@ public class UserController {
         return userService.updateUser(requestJson);
     }
 
-    @RequiresPermissions("user:update")
+    @RequiresPermissions(value = {"user:add", "user:update"}, logical = Logical.OR)
     @GetMapping("/getAllRoles")
     public JSONObject getAllRoles() {
         return userService.getAllRoles();
+    }
+
+    /**
+     * 角色列表
+     *
+     * @return
+     */
+    @RequiresPermissions("role:list")
+    @GetMapping("/listRole")
+    public JSONObject listRole() {
+        return userService.listRole();
+    }
+
+    /**
+     * 查询所有权限, 给角色分配权限时调用
+     *
+     * @return
+     */
+    @RequiresPermissions("role:list")
+    @GetMapping("/listAllPermission")
+    public JSONObject listAllPermission() {
+        return userService.listAllPermission();
+    }
+
+    /**
+     * 新增角色
+     *
+     * @return
+     */
+    @RequiresPermissions("role:add")
+    @PostMapping("/addRole")
+    public JSONObject addRole(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "roleName,permissions");
+        return userService.addRole(requestJson);
+    }
+
+    /**
+     * 修改角色
+     *
+     * @return
+     */
+    @RequiresPermissions("role:update")
+    @PostMapping("/updateRole")
+    public JSONObject updateRole(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "roleId,roleName,permissions");
+        return userService.updateRole(requestJson);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param requestJson
+     * @return
+     */
+    @RequiresPermissions("role:delete")
+    @PostMapping("/deleteRole")
+    public JSONObject deleteRole(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "roleId");
+        return userService.deleteRole(requestJson);
     }
 }

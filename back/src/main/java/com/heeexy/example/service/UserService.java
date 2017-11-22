@@ -43,10 +43,16 @@ public interface UserService {
     /**
      * 角色列表
      *
-     * @param jsonObject
      * @return
      */
-    JSONObject listRole(JSONObject jsonObject);
+    JSONObject listRole();
+
+    /**
+     * 查询所有权限, 给角色分配权限时调用
+     *
+     * @return
+     */
+    JSONObject listAllPermission();
 
     /**
      * 添加角色
@@ -63,4 +69,12 @@ public interface UserService {
      * @return
      */
     JSONObject updateRole(JSONObject jsonObject);
+
+    /**
+     * 删除角色
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject deleteRole(JSONObject jsonObject);
 }

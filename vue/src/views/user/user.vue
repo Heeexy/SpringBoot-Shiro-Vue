@@ -112,7 +112,9 @@
     },
     created() {
       this.getList();
-      this.getAllRoles();
+      if (this.hasPerm('user:add') || this.hasPerm('user:update')) {
+        this.getAllRoles();
+      }
     },
     computed: {
       ...mapGetters([
@@ -178,7 +180,6 @@
         this.dialogStatus = "update"
         this.dialogFormVisible = true
       },
-
       createUser() {
         //添加新用户
         this.api({

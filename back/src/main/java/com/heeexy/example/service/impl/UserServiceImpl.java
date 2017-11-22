@@ -4,10 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.heeexy.example.dao.UserDao;
 import com.heeexy.example.service.UserService;
 import com.heeexy.example.util.CommonUtil;
+import com.heeexy.example.util.constants.ErrorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: hxy
@@ -72,12 +77,23 @@ public class UserServiceImpl implements UserService {
     /**
      * 角色列表
      *
-     * @param jsonObject
      * @return
      */
     @Override
-    public JSONObject listRole(JSONObject jsonObject) {
-        return null;
+    public JSONObject listRole() {
+        List<JSONObject> roles = userDao.listRole();
+        return CommonUtil.successPage(roles);
+    }
+
+    /**
+     * 查询所有权限, 给角色分配权限时调用
+     *
+     * @return
+     */
+    @Override
+    public JSONObject listAllPermission() {
+        List<JSONObject> permissions = userDao.listAllPermission();
+        return CommonUtil.successPage(permissions);
     }
 
     /**
@@ -86,9 +102,12 @@ public class UserServiceImpl implements UserService {
      * @param jsonObject
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public JSONObject addRole(JSONObject jsonObject) {
-        return null;
+        userDao.insertRole(jsonObject);
+        userDao.insertRolePermission(jsonObject.getString("roleId"), (List<Integer>) jsonObject.get("permissions"));
+        return CommonUtil.successJson();
     }
 
     /**
@@ -97,8 +116,92 @@ public class UserServiceImpl implements UserService {
      * @param jsonObject
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public JSONObject updateRole(JSONObject jsonObject) {
-        return null;
+        String roleId = jsonObject.getString("roleId");
+        System.out.println("jsonObject的值为:" + jsonObject);
+        List<Integer> newPerms = (List<Integer>) jsonObject.get("permissions");
+        System.out.println("ids的值为:" + newPerms);
+        JSONObject roleInfo = userDao.getRoleAllInfo(jsonObject);
+        Set<Integer> oldPerms = (Set<Integer>) roleInfo.get("permissionIds");
+        //修改角色名称
+        dealRoleName(jsonObject, roleInfo);
+        //添加新权限
+        saveNewPermission(roleId, newPerms, oldPerms);
+        //移除旧的不再拥有的权限
+        removeOldPermission(roleId, newPerms, oldPerms);
+        return CommonUtil.successJson();
+    }
+
+    /**
+     * 修改角色名称
+     *
+     * @param paramJson
+     * @param roleInfo
+     */
+    private void dealRoleName(JSONObject paramJson, JSONObject roleInfo) {
+        String roleName = paramJson.getString("roleName");
+        if (!roleName.equals(roleInfo.getString("roleName"))) {
+            userDao.updateRoleName(paramJson);
+        }
+    }
+
+    /**
+     * 为角色添加新权限
+     *
+     * @param newPerms
+     * @param oldPerms
+     */
+    private void saveNewPermission(String roleId, Collection<Integer> newPerms, Collection<Integer> oldPerms) {
+        List<Integer> waitInsert = new ArrayList<>();
+        for (Integer newPerm : newPerms) {
+            if (!oldPerms.contains(newPerm)) {
+                waitInsert.add(newPerm);
+            }
+        }
+        System.out.println("waitInsert的值为:" + waitInsert);
+        if (waitInsert.size() > 0) {
+            userDao.insertRolePermission(roleId, waitInsert);
+        }
+    }
+
+    /**
+     * 删除角色 旧的 不再拥有的权限
+     *
+     * @param roleId
+     * @param newPerms
+     * @param oldPerms
+     */
+    private void removeOldPermission(String roleId, Collection<Integer> newPerms, Collection<Integer> oldPerms) {
+        List<Integer> waitRemove = new ArrayList<>();
+        for (Integer oldPerm : oldPerms) {
+            if (!newPerms.contains(oldPerm)) {
+                waitRemove.add(oldPerm);
+            }
+        }
+        System.out.println("waitRemove的值为:" + waitRemove);
+        if (waitRemove.size() > 0) {
+            userDao.removeOldPermission(roleId, waitRemove);
+        }
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param jsonObject
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public JSONObject deleteRole(JSONObject jsonObject) {
+        JSONObject roleInfo = userDao.getRoleAllInfo(jsonObject);
+        List<JSONObject> users = (List<JSONObject>) roleInfo.get("users");
+        if (users != null && users.size() > 0) {
+            return CommonUtil.errorJson(ErrorEnum.E_10008);
+        }
+        userDao.removeRole(jsonObject);
+        userDao.removeRoleAllPermission(jsonObject);
+        return CommonUtil.successJson();
     }
 }

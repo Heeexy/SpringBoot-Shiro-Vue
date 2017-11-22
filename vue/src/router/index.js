@@ -50,6 +50,7 @@ export const asyncRouterMap = [
     icon: '管理员',
     children: [
       {path: '', component: _import('user/user'), name: '用户列表', menu: 'user'},
+      {path: 'role', component: _import('user/role'), name: '权限管理', menu: 'role'},
     ]
   },
   {path: '*', redirect: '/404', hidden: true}
