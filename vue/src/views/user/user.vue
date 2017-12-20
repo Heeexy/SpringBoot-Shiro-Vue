@@ -92,7 +92,7 @@
         listLoading: false,//数据加载等待动画
         listQuery: {
           pageNum: 1,//页码
-          pageRow: 10,//每页条数
+          pageRow: 50,//每页条数
         },
         roles: [],//角色列表
         dialogStatus: 'create',
