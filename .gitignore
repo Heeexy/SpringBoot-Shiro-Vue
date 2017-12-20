@@ -25,3 +25,4 @@ hs_err_pid*
 node_modules/
 target/
 *.iml
+package-lock.json
