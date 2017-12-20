@@ -11,20 +11,20 @@
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit
               highlight-current-row>
       <el-table-column align="center" label="序号" width="80">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span v-text="getIndex(scope.$index)"> </span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="角色" prop="roleName" width="150"></el-table-column>
       <el-table-column align="center" label="用户">
-        <template scope="scope">
+        <template slot-scope="scope">
           <div v-for="user in scope.row.users">
             <div v-text="user.nickname" style="display: inline-block;vertical-align: middle;"></div>
           </div>
         </template>
       </el-table-column>
       <el-table-column align="center" label="菜单&权限" width="420">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-tag v-if="scope.row.roleName==adminName" type="success">全部</el-tag>
           <div v-else>
             <div v-for="menu in scope.row.menus" style="text-align: left">
@@ -37,7 +37,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="管理" width="220" v-if="hasPerm('role:update') ||hasPerm('role:delete') ">
-        <template scope="scope">
+        <template slot-scope="scope">
           <div v-if="scope.row.roleName!='管理员'">
             <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-if="hasPerm('role:update')">修改
             </el-button>
@@ -116,7 +116,6 @@
           url: "/user/listAllPermission",
           method: "get"
         }).then(data => {
-          console.info(data);
           this.allPermission = data.list;
         })
       },
@@ -127,7 +126,6 @@
           url: "/user/listRole",
           method: "get"
         }).then(data => {
-          console.info(data);
           this.listLoading = false;
           this.list = data.list;
         })
@@ -235,7 +233,6 @@
           }).then(() => {
             _vue.getList()
           }).catch(e => {
-            console.info(e);
           })
         })
       },

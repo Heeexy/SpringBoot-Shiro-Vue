@@ -6,13 +6,6 @@ import Layout from '../views/layout/Layout'
 
 const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
-/**
- * icon : the icon show in the sidebar
- * hidden : if `hidden:true` will not show in the sidebar
- * redirect : if `redirect:noredirect` will not redirct in the levelbar
- * noDropdown : if `noDropdown:true` will not has submenu in the sidebar
- * meta : `{ role: ['admin'] }`  will control the page role
- **/
 export const constantRouterMap = [
   {path: '/login', component: _import('login/index'), hidden: true},
   {path: '/404', component: _import('404'), hidden: true},
@@ -22,7 +15,9 @@ export const constantRouterMap = [
     redirect: '/dashboard',
     name: '首页',
     hidden: true,
-    children: [{path: 'dashboard', component: _import('dashboard/index')}]
+    children: [{
+      path: 'dashboard', component: _import('dashboard/index')
+    }]
   }
 ]
 export default new Router({
@@ -31,26 +26,39 @@ export default new Router({
   routes: constantRouterMap
 })
 export const asyncRouterMap = [
-
   {
     path: '/system',
     component: Layout,
-    redirect: 'noredirect',
+    redirect: '/system/article',
     name: '功能模块',
-    icon: 'system',
+    meta: {title: '功能模块', icon: 'tree'},
     children: [
-      {path: 'article', component: _import('article/article'), name: '文章', menu: 'article'},
+      {
+        path: 'article',
+        name: '文章',
+        component: _import('article/article'),
+        meta: {title: '文章', icon: 'example'},
+        menu: 'article'
+      },
     ]
   },
   {
     path: '/user',
     component: Layout,
-    redirect: 'noredirect',
-    name: '用户权限',
-    icon: '管理员',
+    redirect: '/user/',
+    name: '',
+    meta: {title: '用户权限', icon: 'table'},
     children: [
-      {path: '', component: _import('user/user'), name: '用户列表', menu: 'user'},
-      {path: 'role', component: _import('user/role'), name: '权限管理', menu: 'role'},
+      {
+        path: '', name: '用户列表', component: _import('user/user'), meta: {title: '用户列表', icon: 'user'}, menu: 'user'
+      },
+      {
+        path: 'role',
+        name: '权限管理',
+        component: _import('user/role'),
+        meta: {title: '权限管理', icon: 'password'},
+        menu: 'role'
+      },
     ]
   },
   {path: '*', redirect: '/404', hidden: true}
