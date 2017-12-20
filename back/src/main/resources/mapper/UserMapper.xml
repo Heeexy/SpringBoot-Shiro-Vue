@@ -54,6 +54,7 @@
             id        roleId,
             role_name roleName
         FROM sys_role
+        WHERE delete_status='1'
     </select>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
@@ -138,7 +139,6 @@
         </foreach>
     </insert>
 
-
     <resultMap id="aRole" type="com.heeexy.example.util.model.One2Many">
         <id column="roleId" property="roleId"/>
         <result column="roleName" property="roleName"/>
@@ -161,7 +161,6 @@
             LEFT JOIN sys_permission p ON rp.permission_id = p.id
         WHERE r.id = #{roleId}
     </select>
-
 
     <update id="removeRole">
         UPDATE sys_role

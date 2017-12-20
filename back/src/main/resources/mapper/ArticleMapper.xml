@@ -19,7 +19,7 @@
         SELECT
         w.id id,
         w.content content,
-          date_format(w.create_time, '%Y-%m-%d') createTime
+          date_format(w.create_time, '%Y.%m.%d %T') createTime
         FROM article w
         WHERE w.delete_status = '1'
               ORDER BY w.id DESC
