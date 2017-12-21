@@ -6,16 +6,16 @@
       <h3 class="title">后台管理系统</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
-          <icon-svg icon-class="yonghuming"/>
+          <svg-icon icon-class="user"/>
         </span>
-        <el-input v-model="loginForm.username" autoComplete="on" placeholder="邮箱"/>
+        <el-input v-model="loginForm.username" autoComplete="on"/>
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
-          <icon-svg icon-class="mima"></icon-svg>
+          <svg-icon icon-class="password"></svg-icon>
         </span>
-        <el-input type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
-                  placeholder="密码"></el-input>
+        <el-input type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password"
+                  autoComplete="on"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
@@ -50,7 +50,7 @@
               this.loading = false
               if ("success" === data.result) {
                 this.$router.push({path: '/'})
-              }else {
+              } else {
                 this.$message.error("账号/密码错误");
               }
             }).catch(() => {
@@ -109,7 +109,6 @@
     }
     .title {
       font-size: 26px;
-      font-weight: 400;
       color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
