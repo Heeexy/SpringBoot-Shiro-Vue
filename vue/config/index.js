@@ -20,11 +20,12 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   },
-   dev: {
+  dev: {
     env: require('./dev.env'),
+    host: 'localhost',
     port: 9520,
     autoOpenBrowser: true,
-    autoOpenPage:'/login',
+    autoOpenPage: '/login',
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
