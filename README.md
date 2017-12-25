@@ -75,8 +75,11 @@ admin/123456 管理员身份登录,可以新增用户,角色.
 ## 具体实现
 有了思路,就可以根据各自的业务进行实现,本项目在此进行了简单的实现,后端代码在back文件夹,前端代码在vue文件夹.前端启动只需
 ```
+npm install -g npm --registry=https://registry.npm.taobao.org
+npm install --registry=https://registry.npm.taobao.org
 npm run dev
 ```
+
 后端就是常规的shiro配置,前端代码如果看不明白,可以参考[前端权限代码说明](./explain-frontend.md) 
 
 ## 分配权限页面效果
