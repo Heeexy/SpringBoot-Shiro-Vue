@@ -192,4 +192,10 @@
             role_name = #{roleName}
         WHERE id = #{roleId}
     </update>
+    <select id="queryExistUsername" resultType="int">
+        select count(0)
+         from sys_user
+         WHERE username=#{username}
+         AND delete_status='1';
+    </select>
 </mapper>

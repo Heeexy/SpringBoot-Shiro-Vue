@@ -46,6 +46,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public JSONObject addUser(JSONObject jsonObject) {
+        int exist = userDao.queryExistUsername(jsonObject);
+        if (exist > 0) {
+            return CommonUtil.errorJson(ErrorEnum.E_10009);
+        }
         userDao.addUser(jsonObject);
         return CommonUtil.successJson();
     }

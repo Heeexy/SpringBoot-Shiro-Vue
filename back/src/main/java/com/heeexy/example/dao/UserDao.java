@@ -36,6 +36,14 @@ public interface UserDao {
     List<JSONObject> getAllRoles();
 
     /**
+     * 校验用户名是否已存在
+     *
+     * @param jsonObject
+     * @return
+     */
+    int queryExistUsername(JSONObject jsonObject);
+
+    /**
      * 新增用户
      *
      * @param jsonObject
@@ -50,6 +58,7 @@ public interface UserDao {
      * @return
      */
     int updateUser(JSONObject jsonObject);
+
     /**
      * 角色列表
      *
