@@ -83,6 +83,3 @@ npm run dev
 
 ## 分配权限页面效果
 ![分配权限页面](http://ots7yt7am.bkt.clouddn.com/blog/role_permission.png)
-
----
-如果我没有讲清楚,欢迎提意见 ^ ^
