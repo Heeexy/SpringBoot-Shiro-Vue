@@ -40,7 +40,7 @@ admin/123456 管理员身份登录,可以新增用户,角色.
 
 ### 前端
 
-采用了[vueAdmin-template](https://github.com/PanJiaChen/vueAdmin-template) , [ElementUI](https://github.com/ElemeFE/element) , 权限设计思路也是参考了vueAdmin的动态路由的设计.
+采用了[vueAdmin-template](https://github.com/PanJiaChen/vueAdmin-template) , [ElementUI](https://github.com/ElemeFE/element) , 权限设计思路也是参考了 vueAdmin 的动态路由的设计.
 
 后端负责了接口的安全性,而前端之所以要做权限处理,最主要的目的就是**隐藏掉不具有权限的菜单(路由)和按钮**.
 
