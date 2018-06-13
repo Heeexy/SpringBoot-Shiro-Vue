@@ -1,4 +1,4 @@
-package com.ng.find.util;
+package com.heeexy.example.service;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
