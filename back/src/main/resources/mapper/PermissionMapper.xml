@@ -29,6 +29,7 @@
         LEFT JOIN sys_permission p ON rp.permission_id = p.id
         WHERE u.username = #{username}
         AND u.delete_status='1'
+        AND rp.delete_status='1'
     </select>
 
     <select id="getAllPermission" resultType="String">
