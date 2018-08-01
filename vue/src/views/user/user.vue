@@ -174,7 +174,10 @@
       },
       showUpdate($index) {
         let user = this.list[$index];
-        this.tempUser = user;
+        this.tempUser.username = user.username;
+        this.tempUser.nickname = user.nickname;
+        this.tempUser.roleId = user.roleId;
+        this.tempUser.userId = user.userId;
         this.tempUser.deleteStatus = '1';
         this.tempUser.password = '';
         this.dialogStatus = "update"
