@@ -73,7 +73,7 @@
 
         , role_id = #{roleId}
         , delete_status = #{deleteStatus}
-        WHERE id = #{userId}
+        WHERE id = #{userId} and id != 10001
     </update>
     <resultMap id="roleMap" type="com.heeexy.example.util.model.One2Many">
         <id column="roleId" property="roleId"/>
@@ -166,7 +166,7 @@
         UPDATE sys_role
         SET
             delete_status = '2'
-        WHERE id = #{roleId}
+        WHERE id = #{roleId} and id !=1
     </update>
     <update id="removeRoleAllPermission">
         UPDATE sys_role_permission

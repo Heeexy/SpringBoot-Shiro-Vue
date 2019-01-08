@@ -19,15 +19,15 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    if (res.returnCode == '1000') {
+    if (res.code == '1000') {
       return res;
     }
-    if (res.returnCode == '100') {
-      return res.returnData;
-    } else if (res.returnCode == "20011") {
+    if (res.code == '100') {
+      return res.info;
+    } else if (res.code == "20011") {
       Message({
         showClose: true,
-        message: res.returnMsg,
+        message: res.msg,
         type: 'error',
         duration: 500,
         onClose: () => {
@@ -39,7 +39,7 @@ service.interceptors.response.use(
       return Promise.reject("未登录")
     } else {
       Message({
-        message: res.returnMsg,
+        message: res.msg,
         type: 'error',
         duration: 3 * 1000
       })

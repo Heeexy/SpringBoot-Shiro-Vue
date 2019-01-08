@@ -12,8 +12,8 @@
         FROM
             sys_user u
         WHERE u.username = #{username}
-              AND u.password = #{password}
-              AND u.delete_status='1'
+          AND u.password = #{password}
+          AND u.delete_status = '1'
     </select>
 
 </mapper>

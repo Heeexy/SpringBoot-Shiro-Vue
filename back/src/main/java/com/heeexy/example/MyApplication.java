@@ -16,15 +16,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @MapperScan("com.heeexy.example.dao")
 public class MyApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(MyApplication.class);
-        application.setBannerMode(Banner.Mode.OFF);
-        application.run(args);
-    }
+	public static void main(String[] args) {
+		SpringApplication application = new SpringApplication(MyApplication.class);
+		application.setBannerMode(Banner.Mode.OFF);
+		application.run(args);
+	}
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        // 注意这里要指向原先用main方法执行的Application启动类
-        return builder.sources(MyApplication.class);
-    }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		// 注意这里要指向原先用main方法执行的Application启动类
+		return builder.sources(MyApplication.class);
+	}
 }

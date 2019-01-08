@@ -17,18 +17,18 @@
     </resultMap>
     <select id="getUserPermission" resultMap="permissionMap">
         SELECT
-        u.id userId,
-        u.nickname nickname,
-        u.role_id roleId,
-        r.role_name roleName,
-        p.menu_code menuCode,
-        p.permission_code permissionCode
+            u.id              userId,
+            u.nickname        nickname,
+            u.role_id         roleId,
+            r.role_name       roleName,
+            p.menu_code       menuCode,
+            p.permission_code permissionCode
         FROM sys_user u
-        LEFT JOIN sys_role r ON r.id = u.role_id
-        LEFT JOIN sys_role_permission rp ON u.role_id = rp.role_id
-        LEFT JOIN sys_permission p ON rp.permission_id = p.id AND rp.delete_status='1'
+                 LEFT JOIN sys_role r ON r.id = u.role_id
+                 LEFT JOIN sys_role_permission rp ON u.role_id = rp.role_id
+                 LEFT JOIN sys_permission p ON rp.permission_id = p.id AND rp.delete_status = '1'
         WHERE u.username = #{username}
-        AND u.delete_status='1'
+          AND u.delete_status = '1'
     </select>
 
     <select id="getAllPermission" resultType="String">
