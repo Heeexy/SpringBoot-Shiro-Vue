@@ -67,8 +67,8 @@ admin/123456 管理员身份登录,可以新增用户,角色.
 
 ### 数据库
 最主要的是要有一张本系统内的全部权限明细表,比如下面这样
-![权限表](http://ots7yt7am.bkt.clouddn.com/blog/permissionDatabase.png)
-![权限数据](http://ots7yt7am.bkt.clouddn.com/blog/permissionData.png)
+![权限表](http://img.heeexy.com/permissionDatabase.png)
+![权限数据](http://img.heeexy.com/permissionData.png)
 
 如果某用户拥有表格中前五条权限,就可以查出他就拥有article和user两个菜单,至于页面内是否显示(新增)(修改)按钮,就根据他的permissionList来判断.
 
@@ -82,4 +82,4 @@ npm run dev
 后端就是常规的shiro配置,前端代码如果看不明白,可以参考[前端权限代码说明](./explain-frontend.md) 
 
 ## 分配权限页面效果
-![分配权限页面](http://ots7yt7am.bkt.clouddn.com/blog/role_permission.png)
+![分配权限页面](http://img.heeexy.com/role_permission.png)
