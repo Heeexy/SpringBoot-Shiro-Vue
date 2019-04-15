@@ -26,3 +26,7 @@ node_modules/
 target/
 *.iml
 package-lock.json
+
+.settings/
+.classpath
+.project
