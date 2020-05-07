@@ -8,19 +8,19 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "build:report":"npm_config_report=true node build/build.js",
+    "build:report": "npm_config_report=true node build/build.js",
     "lint": "eslint --ext .js,.vue src",
     "test": "npm run lint"
   },
   "dependencies": {
-    "axios": "0.17.1",
-    "element-ui": "2.3.4",
+    "axios": "0.18.1",
+    "element-ui": "2.13.0",
     "js-cookie": "2.2.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
-    "vue": "2.5.10",
-    "vue-router": "3.0.1",
-    "vuex": "3.0.1"
+    "vue": "2.6.10",
+    "vue-router": "3.0.6",
+    "vuex": "3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "7.2.3",
@@ -61,19 +61,18 @@
     "url-loader": "0.6.2",
     "vue-loader": "13.5.0",
     "vue-style-loader": "3.0.3",
-    "vue-template-compiler": "2.5.10",
+    "vue-template-compiler": "2.6.10",
     "webpack": "3.10.0",
     "webpack-bundle-analyzer": "2.9.1",
     "webpack-dev-server": "2.9.7",
     "webpack-merge": "4.1.1"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">=8.9",
     "npm": ">= 3.0.0"
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
+    "last 2 versions"
   ]
 }
