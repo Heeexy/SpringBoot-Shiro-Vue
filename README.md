@@ -75,7 +75,7 @@ admin/123456 管理员身份登录,可以新增用户,角色.
 ## 具体实现
 有了思路,就可以根据各自的业务进行实现,本项目在此进行了简单的实现,后端代码在back文件夹,前端代码在vue文件夹.前端启动只需
 ```
-npm install --registry=https://registry.npm.taobao.org
+npm install
 npm run dev
 ```
 
