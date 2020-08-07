@@ -106,6 +106,11 @@
         this.listQuery.pageNum = val
         this.getList();
       },
+      handleFilter() {
+        //改变了查询条件,从第一页开始查询
+        this.listQuery.pageNum = 1
+        this.getList()
+      },
       getIndex($index) {
         //表格序号
         return (this.listQuery.pageNum - 1) * this.listQuery.pageRow + $index + 1
