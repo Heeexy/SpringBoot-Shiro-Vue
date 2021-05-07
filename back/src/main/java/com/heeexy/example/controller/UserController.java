@@ -3,15 +3,15 @@ package com.heeexy.example.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.heeexy.example.service.UserService;
 import com.heeexy.example.util.CommonUtil;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.heeexy.example.config.annotation.Logical;
+import com.heeexy.example.config.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: 用户/角色/权限相关controller
  * @date: 2017/11/2 10:19
  */

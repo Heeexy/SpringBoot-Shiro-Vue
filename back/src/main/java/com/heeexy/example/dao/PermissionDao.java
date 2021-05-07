@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Set;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @date: 2017/10/30 13:28
  */
 public interface PermissionDao {

@@ -12,7 +12,7 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({path: '/'})
       NProgress.done() // 结束Progress
-    } else if (!store.getters.role) {
+    } else if (!store.getters.userId) {
       store.dispatch('GetInfo').then(() => {
         next({...to})
       })

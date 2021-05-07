@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: MyBatis的一对多JSON返回对象
  * <p>
  * 处理嵌套查询结果时，MyBatis会根据bean定义的属性类型来初始化嵌套的成员变量，

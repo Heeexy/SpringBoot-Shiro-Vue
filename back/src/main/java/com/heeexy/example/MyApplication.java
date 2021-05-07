@@ -8,7 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: SpringBoot启动类
  * @date: 2017/10/24 11:55
  */

@@ -1,7 +1,7 @@
 package com.heeexy.example.util.constants;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @date: 2017/10/24 10:16
  */
 public enum ErrorEnum {
@@ -14,6 +14,7 @@ public enum ErrorEnum {
 	E_502("502", "权限不足"),
 	E_10008("10008", "角色删除失败,尚有用户属于此角色"),
 	E_10009("10009", "账户已存在"),
+	E_10010("10010", "账号/密码错误"),
 
 	E_20011("20011", "登陆已过期,请重新登陆"),
 

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds">
+
+    <contextName>heeexy</contextName>
+
+    <!--定义日志文件的存储地址 -->
+    <property name="LOG_HOME" value="logs"/>
+
+    <!--定义日志的输出格式 -->
+    <property name="PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId}][%X{account}] [%thread] %logger{30}:%line - %msg%n"/>
+
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -9,12 +19,11 @@
                     converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
     <!-- 彩色日志格式 -->
     <property name="CONSOLE_LOG_PATTERN"
-              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %yellow([%X{traceId}][%X{username}]) %highlight(%-5level) %magenta(%logger{30}:%-3L) - %m%n"/>
 
-    <contextName>heeexy</contextName>
-
-    <!--定义日志文件的存储地址 -->
-    <property name="LOG_HOME" value="logs"/>
+    <!-- console日志格式 精简版 -->
+    <property name="CONSOLE_LOG_PATTERN_SIMPLE"
+              value="%d{HH:mm:ss.SSS} %highlight(%-5level) %magenta(%logger{20}:%-3L) - %m%n"/>
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
@@ -43,7 +52,7 @@
         </rollingPolicy>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level --- [%file:%line][%thread] - %msg%n</pattern>
+            <pattern>${PATTERN}</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -63,6 +72,7 @@
     <logger name="org.mybatis" level="INFO"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
+    <logger name="com.heeexy.example" level="DEBUG"/>
     <!--如果需要打印SQL,可以把下面的级别设置为DEBUG -->
     <logger name="com.heeexy.example.dao" level="DEBUG"/>
 

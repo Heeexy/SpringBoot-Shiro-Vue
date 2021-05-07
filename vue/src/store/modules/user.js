@@ -1,5 +1,4 @@
-import {getInfo, login, logout} from '@/api/login'
-import {getToken, removeToken, setToken} from '@/utils/auth'
+import { removeToken, setToken} from '@/utils/auth'
 import {default as api} from '../../utils/api'
 import store from '../../store'
 import router from '../../router'
@@ -8,7 +7,7 @@ const user = {
   state: {
     nickname: "",
     userId: "",
-    avatar: 'https://www.gravatar.com/avatar/6560ed55e62396e40b34aac1e5041028',
+    avatar: 'http://img.heeexy.com/avatar.jpg',
     role: '',
     menus: [],
     permissions: [],
@@ -17,7 +16,7 @@ const user = {
     SET_USER: (state, userInfo) => {
       state.nickname = userInfo.nickname;
       state.userId = userInfo.userId;
-      state.role = userInfo.roleName;
+      state.role = userInfo.roleId;
       state.menus = userInfo.menuList;
       state.permissions = userInfo.permissionList;
     },
@@ -38,10 +37,8 @@ const user = {
           method: "post",
           data: loginForm
         }).then(data => {
-          if (data.result === "success") {
-            //cookie中保存前端登录状态
-            setToken();
-          }
+            //localstorage中保存token
+            setToken(data.token);
           resolve(data);
         }).catch(err => {
           reject(err)
@@ -56,12 +53,9 @@ const user = {
           method: 'post'
         }).then(data => {
           //储存用户信息
-          commit('SET_USER', data.userPermission);
-          //cookie保存登录状态,仅靠vuex保存的话,页面刷新就会丢失登录状态
-          setToken();
+          commit('SET_USER', data);
           //生成路由
-          let userPermission = data.userPermission ;
-          store.dispatch('GenerateRoutes', userPermission).then(() => {
+          store.dispatch('GenerateRoutes', data).then(() => {
             //生成该用户的新路由json操作完毕之后,调用vue-router的动态新增路由方法,将新路由添加
             router.addRoutes(store.getters.addRouters)
           })

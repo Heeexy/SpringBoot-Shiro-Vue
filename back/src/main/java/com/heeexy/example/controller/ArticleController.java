@@ -3,14 +3,14 @@ package com.heeexy.example.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.heeexy.example.service.ArticleService;
 import com.heeexy.example.util.CommonUtil;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.heeexy.example.config.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: 文章相关Controller
  * @date: 2017/10/24 16:04
  */

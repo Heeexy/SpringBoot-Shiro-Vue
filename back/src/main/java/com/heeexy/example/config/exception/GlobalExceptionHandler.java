@@ -3,8 +3,6 @@ package com.heeexy.example.config.exception;
 import com.alibaba.fastjson.JSONObject;
 import com.heeexy.example.util.CommonUtil;
 import com.heeexy.example.util.constants.ErrorEnum;
-import org.apache.shiro.authz.UnauthenticatedException;
-import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: 统一异常拦截
  * @date: 2017/10/24 10:31
  */
