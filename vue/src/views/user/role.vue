@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-form>
         <el-form-item>
-          <el-button type="success" icon="plus" v-if="hasPerm('user:add')" @click="showCreate">添加角色
+          <el-button type="success" icon="plus" v-permission="'role:add'" @click="showCreate">添加角色
           </el-button>
         </el-form-item>
       </el-form>
@@ -36,12 +36,12 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="管理" width="220" v-if="hasPerm('role:update') ||hasPerm('role:delete') ">
+      <el-table-column align="center" label="管理" width="220"  v-permission="'role:update|role:delete'">
         <template slot-scope="scope">
           <div v-if="scope.row.roleName!='管理员'">
-            <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-if="hasPerm('role:update')">修改
+            <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-permission="'role:update'">修改
             </el-button>
-            <el-button v-if=" scope.row.users && scope.row.users.length===0 && hasPerm('role:delete')" type="danger"
+            <el-button v-if=" scope.row.users && scope.row.users.length===0 " v-permission="'role:delete'" type="danger"
                        icon="delete"
                        @click="removeRole(scope.$index)">
               删除
