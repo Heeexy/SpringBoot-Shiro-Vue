@@ -46,11 +46,11 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form class="small-space" :model="tempUser" label-position="left" label-width="80px"
                style='width: 300px; margin-left:50px;'>
-        <el-form-item label="用户名" required v-if="dialogStatus=='create'">
+        <el-form-item label="用户名" required v-if="dialogStatus==='create'">
           <el-input type="text" v-model="tempUser.username">
           </el-input>
         </el-form-item>
-        <el-form-item label="密码" v-if="dialogStatus=='create'" required>
+        <el-form-item label="密码" v-if="dialogStatus==='create'" required>
           <el-input type="password" v-model="tempUser.password">
           </el-input>
         </el-form-item>
@@ -75,7 +75,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="success" @click="createUser">创 建</el-button>
+        <el-button v-if="dialogStatus==='create'" type="success" @click="createUser">创 建</el-button>
         <el-button type="primary" v-else @click="updateUser">修 改</el-button>
       </div>
     </el-dialog>

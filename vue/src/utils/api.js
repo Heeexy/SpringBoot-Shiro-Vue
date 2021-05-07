@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Message, MessageBox} from 'element-ui'
+import {Message} from 'element-ui'
 import {getToken} from '@/utils/auth'
 import store from '../store'
 // 创建axios实例
@@ -23,7 +23,6 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    console.log(res)
     if (res.code === '200') {
       return res.info;
     } else if (res.code === "20011") {

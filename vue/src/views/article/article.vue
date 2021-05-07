@@ -46,7 +46,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="success" @click="createArticle">创 建</el-button>
+        <el-button v-if="dialogStatus==='create'" type="success" @click="createArticle">创 建</el-button>
         <el-button type="primary" v-else @click="updateArticle">修 改</el-button>
       </div>
     </el-dialog>

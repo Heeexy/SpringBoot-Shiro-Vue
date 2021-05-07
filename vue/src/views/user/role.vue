@@ -25,7 +25,7 @@
       </el-table-column>
       <el-table-column align="center" label="菜单&权限" width="420">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.roleName==adminName" type="success">全部</el-tag>
+          <el-tag v-if="scope.row.roleName===adminName" type="success">全部</el-tag>
           <div v-else>
             <div v-for="menu in scope.row.menus" style="text-align: left">
               <span style="width: 100px;display: inline-block;text-align: right ">{{menu.menuName}}</span>
@@ -38,7 +38,7 @@
       </el-table-column>
       <el-table-column align="center" label="管理" width="220"  v-permission="'role:update|role:delete'">
         <template slot-scope="scope">
-          <div v-if="scope.row.roleName!='管理员'">
+          <div v-if="scope.row.roleName!=='管理员'">
             <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-permission="'role:update'">修改
             </el-button>
             <el-button v-if=" scope.row.users && scope.row.users.length===0 " v-permission="'role:delete'" type="danger"
@@ -78,7 +78,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="success" @click="createRole">创 建</el-button>
+        <el-button v-if="dialogStatus==='create'" type="success" @click="createRole">创 建</el-button>
         <el-button type="primary" v-else @click="updateRole">修 改</el-button>
       </div>
     </el-dialog>

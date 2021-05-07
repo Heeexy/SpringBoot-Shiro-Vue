@@ -7,7 +7,6 @@ const user = {
   state: {
     nickname: "",
     userId: "",
-    avatar: 'http://img.heeexy.com/avatar.jpg',
     role: '',
     menus: [],
     permissions: [],
