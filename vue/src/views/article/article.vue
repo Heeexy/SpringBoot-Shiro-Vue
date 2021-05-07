@@ -16,11 +16,8 @@
         </template>
       </el-table-column>
       <el-table-column align="center" prop="content" label="文章" style="width: 60px;"></el-table-column>
-      <el-table-column align="center" label="创建时间" width="170">
-        <template slot-scope="scope">
-          <span>{{scope.row.createTime}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column align="center" prop="createTime" label="创建时间" width="170"/>
+      <el-table-column align="center" prop="updateTime" label="最近修改时间" width="170"/>
       <el-table-column align="center" label="管理" width="200" v-permission="'article:update'" >
         <template slot-scope="scope">
           <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)">修改</el-button>
@@ -38,9 +35,9 @@
     </el-pagination>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form class="small-space" :model="tempArticle" label-position="left" label-width="60px"
-               style='width: 300px; margin-left:50px;'>
+               style='width: 500px; margin-left:50px;'>
         <el-form-item label="文章">
-          <el-input type="text" v-model="tempArticle.content">
+          <el-input type="textarea" style="width:100%" show-word-limit v-model="tempArticle.content"  maxlength="100">
           </el-input>
         </el-form-item>
       </el-form>

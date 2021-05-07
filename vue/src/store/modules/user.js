@@ -1,4 +1,4 @@
-import { removeToken, setToken} from '@/utils/auth'
+import {removeToken, setToken} from '@/utils/auth'
 import {default as api} from '../../utils/api'
 import store from '../../store'
 import router from '../../router'
@@ -7,7 +7,7 @@ const user = {
   state: {
     nickname: "",
     userId: "",
-    role: '',
+    roleIds: [],
     menus: [],
     permissions: [],
   },
@@ -15,14 +15,14 @@ const user = {
     SET_USER: (state, userInfo) => {
       state.nickname = userInfo.nickname;
       state.userId = userInfo.userId;
-      state.role = userInfo.roleId;
+      state.roleIds = userInfo.roleIds;
       state.menus = userInfo.menuList;
       state.permissions = userInfo.permissionList;
     },
     RESET_USER: (state) => {
       state.nickname = "";
       state.userId = "";
-      state.role = '';
+      state.roleIds = [];
       state.menus = [];
       state.permissions = [];
     }
@@ -36,8 +36,8 @@ const user = {
           method: "post",
           data: loginForm
         }).then(data => {
-            //localstorage中保存token
-            setToken(data.token);
+          //localstorage中保存token
+          setToken(data.token);
           resolve(data);
         }).catch(err => {
           reject(err)
@@ -80,7 +80,7 @@ const user = {
         })
       })
     },
-    // 前端 登出
+    // 前端登出,不用调后端清除token的接口
     FedLogOut({commit}) {
       return new Promise(resolve => {
         commit('RESET_USER')

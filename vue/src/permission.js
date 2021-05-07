@@ -8,11 +8,11 @@ router.beforeEach((to, from, next) => {
   NProgress.start()
   if (getToken()) {
     //如果已经登录
-
     if (to.path === '/login') {
       next({path: '/'})
       NProgress.done() // 结束Progress
     } else if (!store.getters.userId) {
+      //已经登录但是store内没有userId,说明可能是重新刷新的页面,因此重新获取用户信息
       store.dispatch('GetInfo').then(() => {
         next({...to})
       })

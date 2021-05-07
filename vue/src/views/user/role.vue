@@ -41,7 +41,7 @@
           <div v-if="scope.row.roleName!=='管理员'">
             <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-permission="'role:update'">修改
             </el-button>
-            <el-button v-if=" scope.row.users && scope.row.users.length===0 " v-permission="'role:delete'" type="danger"
+            <el-button v-permission="'role:delete'" type="danger"
                        icon="delete"
                        @click="removeRole(scope.$index)">
               删除
