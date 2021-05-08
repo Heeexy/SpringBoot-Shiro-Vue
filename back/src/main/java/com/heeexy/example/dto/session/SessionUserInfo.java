@@ -13,7 +13,6 @@ public class SessionUserInfo {
     private int userId;
     private String username;
     private String nickname;
-    private int roleId;
     private List<Integer> roleIds;
     private Set<String> menuList;
     private Set<String> permissionList;

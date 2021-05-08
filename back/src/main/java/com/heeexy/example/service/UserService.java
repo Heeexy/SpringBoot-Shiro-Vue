@@ -70,7 +70,6 @@ public class UserService {
     /**
      * 角色列表
      */
-
     public JSONObject listRole() {
         List<JSONObject> roles = userDao.listRole();
         return CommonUtil.successPage(roles);
