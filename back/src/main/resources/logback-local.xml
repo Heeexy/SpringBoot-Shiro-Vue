@@ -42,11 +42,9 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
         </filter>
-        <!-- 可让每天产生一个日志文件，最多 180 个，自动回滚 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/%d{yyyy-MM,aux}/heeexy-%d{yyyy-MM-dd}.log
+            <fileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}.log
             </fileNamePattern>
-            <!-- keep 180 days' worth of history capped at 50GB total size -->
             <maxHistory>180</maxHistory>
             <totalSizeCap>40GB</totalSizeCap>
         </rollingPolicy>
