@@ -4,10 +4,10 @@
     <contextName>heeexy</contextName>
 
     <!--定义日志文件的存储地址 -->
-    <property name="LOG_HOME" value="/data/logs/heeexy"/>
+    <property name="LOG_HOME" value="logs"/>
     <!--定义日志的输出格式 -->
     <property name="PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId}][%X{account}] [%thread] %logger{30}:%line - %msg%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId}][%X{username}] [%thread] %logger{30}:%line - %msg%n"/>
 
     <appender name="RollingFile"
               class="ch.qos.logback.core.rolling.RollingFileAppender">

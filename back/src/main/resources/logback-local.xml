@@ -8,7 +8,7 @@
 
     <!--定义日志的输出格式 -->
     <property name="PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId}][%X{account}] [%thread] %logger{30}:%line - %msg%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId}][%X{username}] [%thread] %logger{30}:%line - %msg%n"/>
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
