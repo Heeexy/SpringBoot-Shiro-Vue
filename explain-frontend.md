@@ -65,3 +65,6 @@ export function hasPermission(permission) {
   return myPermissions.indexOf(permission) > -1;
 }
 ```
+> v2.0.0 增加了v-permission指令，相当于` v-if="hasPerm('article:add')"`
+
+
