@@ -61,7 +61,9 @@ public class UserService {
     public JSONObject updateUser(JSONObject jsonObject) {
         userDao.updateUser(jsonObject);
         userDao.removeUserAllRole(jsonObject.getIntValue("userId"));
-        userDao.batchAddUserRole(jsonObject);
+        if (!jsonObject.getJSONArray("roleIds").isEmpty()) {
+            userDao.batchAddUserRole(jsonObject);
+        }
         return CommonUtil.successJson();
     }
 

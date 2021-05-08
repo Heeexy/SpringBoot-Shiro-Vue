@@ -8,7 +8,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit
+    <el-table :data="list" v-loading="listLoading"  border fit
               highlight-current-row>
       <el-table-column align="center" label="序号" width="80">
         <template slot-scope="scope">
@@ -213,6 +213,7 @@ export default {
         method: "post",
         data: this.tempUser
       }).then(() => {
+        this.$message.success('添加成功')
         this.getList();
         this.dialogFormVisible = false
       })
@@ -226,16 +227,10 @@ export default {
         method: "post",
         data: this.tempUser
       }).then(() => {
-        let msg = "修改成功";
+        this.$message.success('修改成功')
         this.dialogFormVisible = false
-        this.$message({
-          message: msg,
-          type: 'success',
-          duration: 1000,
-          onClose: () => {
-            _vue.getList();
-          }
-        })
+        _vue.getList();
+
       })
     },
     removeUser($index) {
@@ -253,6 +248,7 @@ export default {
           method: "post",
           data: user
         }).then(() => {
+          this.$message.success('删除成功')
           _vue.getList()
         }).catch(() => {
           _vue.$message.error("删除失败")
