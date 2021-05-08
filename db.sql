@@ -1,12 +1,4 @@
-﻿# Host: 127.0.0.1  (Version 5.6.35)
-# Date: 2017-11-22 16:38:47
-# Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
 
-/*!40101 SET NAMES utf8 */;
-
-#
-# Structure for table "article"
-#
 
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
@@ -16,7 +8,7 @@ CREATE TABLE `article` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1.有效  2无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='发布号作者表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COMMENT='发布号作者表';
 
 #
 # Data for table "article"
@@ -37,7 +29,7 @@ CREATE TABLE `sys_permission` (
   `permission_name` varchar(255) DEFAULT '' COMMENT '本权限的中文释义',
   `required_permission` tinyint(1) DEFAULT '2' COMMENT '是否本菜单必选权限, 1.必选 2非必选 通常是"列表"权限是必选',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台权限表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='后台权限表';
 
 #
 # Data for table "sys_permission"
@@ -57,7 +49,7 @@ CREATE TABLE `sys_role` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1有效  2无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='后台角色表';
 
 #
 # Data for table "sys_role"
@@ -78,7 +70,7 @@ CREATE TABLE `sys_role_permission` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效 1有效     2无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='角色-权限关联表';
 
 #
 # Data for table "sys_role_permission"
@@ -101,7 +93,7 @@ CREATE TABLE `sys_user` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1有效  2无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10008 DEFAULT CHARSET=utf8 COMMENT='运营后台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=10008 DEFAULT CHARSET=utf8mb4 COMMENT='运营后台用户表';
 
 #
 # Data for table "sys_user"
