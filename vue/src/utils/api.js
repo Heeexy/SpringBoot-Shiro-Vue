@@ -1,14 +1,18 @@
 import axios from 'axios'
-import {Message, MessageBox} from 'element-ui'
+import {Message} from 'element-ui'
 import {getToken} from '@/utils/auth'
 import store from '../store'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_URL, // api的base_url
-  timeout: 15000                  // 请求超时时间2
+  timeout: 15000                  // 请求超时时间
 })
 // request拦截器
 service.interceptors.request.use(config => {
+  let token = getToken();
+  if (token) {
+    config.headers.token = token;
+  }
   return config
 }, error => {
   // Do something with request error
@@ -19,12 +23,9 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    if (res.code == '1000') {
-      return res;
-    }
-    if (res.code == '100') {
+    if (res.code === '200') {
       return res.info;
-    } else if (res.code == "20011") {
+    } else if (res.code === "20011") {
       Message({
         showClose: true,
         message: res.msg,

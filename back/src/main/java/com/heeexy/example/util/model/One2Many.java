@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: MyBatis的一对多JSON返回对象
  * <p>
  * 处理嵌套查询结果时，MyBatis会根据bean定义的属性类型来初始化嵌套的成员变量，
@@ -17,12 +17,13 @@ import java.util.Set;
  * @date: 2017/10/24 10:17
  */
 public class One2Many extends JSONObject {
-	private Set<String> roleList;
-	private Set<String> menuList;
-	private Set<String> permissionList;
-	private Set<Integer> permissionIds;
-	private List<JSONObject> picList;
-	private List<JSONObject> menus;
-	private List<JSONObject> users;
-	private List<JSONObject> permissions;
+    private Set<String> roleList;
+    private Set<String> menuList;
+    private Set<String> permissionList;
+    private Set<Integer> permissionIds;
+    private List<JSONObject> picList;
+    private List<JSONObject> menus;
+    private List<JSONObject> users;
+    private List<JSONObject> permissions;
+    private List<JSONObject> roles;
 }

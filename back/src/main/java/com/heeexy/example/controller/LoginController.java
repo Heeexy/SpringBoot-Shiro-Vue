@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author: hxy
+ * @author: heeexy
  * @description: 登录相关Controller
  * @date: 2017/10/24 10:33
  */
@@ -18,31 +18,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-	@Autowired
-	private LoginService loginService;
+    @Autowired
+    private LoginService loginService;
 
-	/**
-	 * 登录
-	 */
-	@PostMapping("/auth")
-	public JSONObject authLogin(@RequestBody JSONObject requestJson) {
-		CommonUtil.hasAllRequired(requestJson, "username,password");
-		return loginService.authLogin(requestJson);
-	}
+    /**
+     * 登录
+     */
+    @PostMapping("/auth")
+    public JSONObject authLogin(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "username,password");
+        return loginService.authLogin(requestJson);
+    }
 
-	/**
-	 * 查询当前登录用户的信息
-	 */
-	@PostMapping("/getInfo")
-	public JSONObject getInfo() {
-		return loginService.getInfo();
-	}
+    /**
+     * 查询当前登录用户的信息
+     */
+    @PostMapping("/getInfo")
+    public JSONObject getInfo() {
+        return loginService.getInfo();
+    }
 
-	/**
-	 * 登出
-	 */
-	@PostMapping("/logout")
-	public JSONObject logout() {
-		return loginService.logout();
-	}
+    /**
+     * 登出
+     */
+    @PostMapping("/logout")
+    public JSONObject logout() {
+        return loginService.logout();
+    }
 }

@@ -3,17 +3,51 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.heeexy.example.dao.LoginDao">
 
-    <select id="getUser" resultType="com.alibaba.fastjson.JSONObject">
-        SELECT
-            u.id       userId,
-            u.username username,
-            u.password password,
-            u.nickname nickName
-        FROM
-            sys_user u
+    <select id="checkUser" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT u.id userId
+        FROM sys_user u
         WHERE u.username = #{username}
           AND u.password = #{password}
           AND u.delete_status = '1'
     </select>
 
+
+    <resultMap id="userInfo" type="com.heeexy.example.dto.session.SessionUserInfo">
+        <id column="userId" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <collection property="roleIds" ofType="Integer">
+            <id column="roleId" property="roleId"/>
+        </collection>
+        <collection property="menuList" ofType="String">
+            <id column="menuCode" property="menuCode"/>
+        </collection>
+        <collection property="permissionList" ofType="String">
+            <id column="permissionCode" property="permissionCode"/>
+        </collection>
+    </resultMap>
+    <select id="getUserInfo" resultMap="userInfo">
+        SELECT u.id              userId,
+               u.username,
+               u.nickname,
+               ur.role_id        roleId,
+               p.menu_code       menuCode,
+               p.permission_code permissionCode
+        FROM sys_user u
+                 LEFT JOIN sys_user_role ur on u.id = ur.user_id
+                 LEFT JOIN sys_role r ON r.id = ur.role_id
+                 LEFT JOIN sys_role_permission rp ON u.role_id = rp.role_id
+                 LEFT JOIN sys_permission p ON rp.permission_id = p.id AND rp.delete_status = '1'
+        WHERE u.username = #{username}
+          AND u.delete_status = '1'
+    </select>
+
+    <select id="getAllMenu" resultType="String">
+        select distinct(menu_code)
+        from sys_permission;
+    </select>
+    <select id="getAllPermissionCode" resultType="String">
+        select distinct(permission_code)
+        from sys_permission;
+    </select>
 </mapper>
