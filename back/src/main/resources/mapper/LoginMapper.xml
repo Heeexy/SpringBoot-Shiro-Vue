@@ -16,7 +16,9 @@
         <id column="userId" property="userId"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
-        <result column="roleId" property="roleId"/>
+        <collection property="roleIds" ofType="Integer">
+            <id column="roleId" property="roleId"/>
+        </collection>
         <collection property="menuList" ofType="String">
             <id column="menuCode" property="menuCode"/>
         </collection>
@@ -28,11 +30,12 @@
         SELECT u.id              userId,
                u.username,
                u.nickname,
-               u.role_id         roleId,
+               ur.role_id        roleId,
                p.menu_code       menuCode,
                p.permission_code permissionCode
         FROM sys_user u
-                 LEFT JOIN sys_role r ON r.id = u.role_id
+                 LEFT JOIN sys_user_role ur on u.id = ur.user_id
+                 LEFT JOIN sys_role r ON r.id = ur.role_id
                  LEFT JOIN sys_role_permission rp ON u.role_id = rp.role_id
                  LEFT JOIN sys_permission p ON rp.permission_id = p.id AND rp.delete_status = '1'
         WHERE u.username = #{username}

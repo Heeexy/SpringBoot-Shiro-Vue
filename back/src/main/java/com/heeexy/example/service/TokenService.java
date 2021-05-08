@@ -75,7 +75,7 @@ public class TokenService {
 
     private SessionUserInfo getUserInfoByUsername(String username) {
         SessionUserInfo userInfo = loginDao.getUserInfo(username);
-        if (userInfo.getRoleId() == 1) {
+        if (userInfo.getRoleIds().contains(1)) {
             //管理员,查出全部按钮和权限码
             userInfo.setMenuList(loginDao.getAllMenu());
             userInfo.setPermissionList(loginDao.getAllPermissionCode());

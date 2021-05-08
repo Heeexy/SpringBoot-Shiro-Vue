@@ -17,12 +17,13 @@ import java.util.Set;
  * @date: 2017/10/24 10:17
  */
 public class One2Many extends JSONObject {
-	private Set<String> roleList;
-	private Set<String> menuList;
-	private Set<String> permissionList;
-	private Set<Integer> permissionIds;
-	private List<JSONObject> picList;
-	private List<JSONObject> menus;
-	private List<JSONObject> users;
-	private List<JSONObject> permissions;
+    private Set<String> roleList;
+    private Set<String> menuList;
+    private Set<String> permissionList;
+    private Set<Integer> permissionIds;
+    private List<JSONObject> picList;
+    private List<JSONObject> menus;
+    private List<JSONObject> users;
+    private List<JSONObject> permissions;
+    private List<JSONObject> roles;
 }

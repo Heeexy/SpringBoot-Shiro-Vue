@@ -6,6 +6,6 @@ package com.heeexy.example.util.constants;
  * @date: 2017/10/24 10:15
  */
 public class Constants {
-	public static final String SUCCESS_CODE = "200";
-	public static final String SUCCESS_MSG = "";
+    public static final String SUCCESS_CODE = "200";
+    public static final String SUCCESS_MSG = "";
 }

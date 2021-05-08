@@ -33,7 +33,7 @@ public class PermissionAspect {
     @Before("@annotation(com.heeexy.example.config.annotation.RequiresPermissions)")
     public void before(JoinPoint joinPoint) {
         log.debug("开始校验[操作权限]");
-        SessionUserInfo userInfo=tokenService.getUserInfo();
+        SessionUserInfo userInfo = tokenService.getUserInfo();
         Set<String> myCodes = userInfo.getPermissionList();
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;

@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-form>
         <el-form-item>
-          <el-button type="primary" icon="plus"  v-permission="'user:add'" @click="showCreate">添加
+          <el-button type="primary" icon="plus" v-permission="'user:add'" @click="showCreate">添加
           </el-button>
         </el-form-item>
       </el-form>
@@ -17,10 +17,12 @@
       </el-table-column>
       <el-table-column align="center" label="昵称" prop="nickname" style="width: 60px;"></el-table-column>
       <el-table-column align="center" label="用户名" prop="username" style="width: 60px;"></el-table-column>
-      <el-table-column align="center" label="角色" width="100">
+      <el-table-column align="center" label="角色" width="200">
         <template slot-scope="scope">
-          <el-tag type="success" v-text="scope.row.roleName" v-if="scope.row.roleId===1"></el-tag>
-          <el-tag type="primary" v-text="scope.row.roleName" v-else></el-tag>
+          <div style="margin-right: 4px;display: inline-block" v-for="i in scope.row.roles">
+            <el-tag type="success" v-text="i.roleName" v-if="i.roleId===1"></el-tag>
+            <el-tag type="primary" v-text="i.roleName" v-else></el-tag>
+          </div>
         </template>
       </el-table-column>
       <el-table-column align="center" label="创建时间" prop="createTime" width="170"></el-table-column>
@@ -59,7 +61,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="角色" required>
-          <el-select v-model="tempUser.roleId" placeholder="请选择">
+          <el-select v-model="tempUser.roleIds" multiple placeholder="支持多角色" style="width: 300px">
             <el-option
               v-for="item in roles"
               :key="item.roleId"
@@ -82,161 +84,181 @@
   </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 
-  export default {
-    data() {
-      return {
-        totalCount: 0, //分页组件--数据总条数
-        list: [],//表格的数据
-        listLoading: false,//数据加载等待动画
-        listQuery: {
-          pageNum: 1,//页码
-          pageRow: 50,//每页条数
-        },
-        roles: [],//角色列表
-        dialogStatus: 'create',
-        dialogFormVisible: false,
-        textMap: {
-          update: '编辑',
-          create: '新建用户'
-        },
-        tempUser: {
-          username: '',
-          password: '',
-          nickname: '',
-          roleId: '',
-          userId: ''
-        }
+export default {
+  data() {
+    return {
+      totalCount: 0, //分页组件--数据总条数
+      list: [],//表格的数据
+      listLoading: false,//数据加载等待动画
+      listQuery: {
+        pageNum: 1,//页码
+        pageRow: 50,//每页条数
+      },
+      roles: [],//角色列表
+      dialogStatus: 'create',
+      dialogFormVisible: false,
+      textMap: {
+        update: '编辑',
+        create: '新建用户'
+      },
+      tempUser: {
+        username: '',
+        password: '',
+        nickname: '',
+        roleIds: [],
+        userId: ''
       }
+    }
+  },
+  created() {
+    this.getList();
+    if (this.hasPerm('user:add') || this.hasPerm('user:update')) {
+      this.getAllRoles();
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'userId'
+    ])
+  },
+  methods: {
+    getAllRoles() {
+      this.api({
+        url: "/user/getAllRoles",
+        method: "get"
+      }).then(data => {
+        this.roles = data.list;
+      })
     },
-    created() {
+    getList() {
+      //查询列表
+      this.listLoading = true;
+      this.api({
+        url: "/user/list",
+        method: "get",
+        params: this.listQuery
+      }).then(data => {
+        this.listLoading = false;
+        this.list = data.list;
+        this.totalCount = data.totalCount;
+      })
+    },
+    handleSizeChange(val) {
+      //改变每页数量
+      this.listQuery.pageRow = val
+      this.handleFilter();
+    },
+    handleCurrentChange(val) {
+      //改变页码
+      this.listQuery.pageNum = val
       this.getList();
-      if (this.hasPerm('user:add') || this.hasPerm('user:update')) {
-        this.getAllRoles();
+    },
+    handleFilter() {
+      //查询事件
+      this.listQuery.pageNum = 1
+      this.getList()
+    },
+    getIndex($index) {
+      //表格序号
+      return (this.listQuery.pageNum - 1) * this.listQuery.pageRow + $index + 1
+    },
+    showCreate() {
+      //显示新增对话框
+      this.tempUser.username = "";
+      this.tempUser.password = "";
+      this.tempUser.nickname = "";
+      this.tempUser.roleIds = [];
+      this.tempUser.userId = "";
+      this.dialogStatus = "create"
+      this.dialogFormVisible = true
+    },
+    showUpdate($index) {
+      let user = this.list[$index];
+      this.tempUser.username = user.username;
+      this.tempUser.nickname = user.nickname;
+      this.tempUser.roleIds = user.roles.map(x => x.roleId);
+      this.tempUser.userId = user.userId;
+      this.tempUser.deleteStatus = '1';
+      this.tempUser.password = '';
+      this.dialogStatus = "update"
+      this.dialogFormVisible = true
+    },
+    validate(isCreate) {
+      let u = this.tempUser
+      if (isCreate && u.username.trim().length === 0) {
+        this.$message.warning('请填写用户名')
+        return false
       }
+      if (isCreate && u.password.length === 0) {
+        this.$message.warning('请填写密码')
+        return false
+      }
+      if (u.nickname.trim().length === 0) {
+        this.$message.warning('请填写昵称')
+        return false
+      }
+      if (u.roleIds.length === 0) {
+        this.$message.warning('请选择角色')
+        return false
+      }
+      return true
     },
-    computed: {
-      ...mapGetters([
-        'userId'
-      ])
-    },
-    methods: {
-      getAllRoles() {
-        this.api({
-          url: "/user/getAllRoles",
-          method: "get"
-        }).then(data => {
-          this.roles = data.list;
-        })
-      },
-      getList() {
-        //查询列表
-        this.listLoading = true;
-        this.api({
-          url: "/user/list",
-          method: "get",
-          params: this.listQuery
-        }).then(data => {
-          this.listLoading = false;
-          this.list = data.list;
-          this.totalCount = data.totalCount;
-        })
-      },
-      handleSizeChange(val) {
-        //改变每页数量
-        this.listQuery.pageRow = val
-        this.handleFilter();
-      },
-      handleCurrentChange(val) {
-        //改变页码
-        this.listQuery.pageNum = val
+    createUser() {
+      if (!this.validate(true)) return
+      //添加新用户
+      this.api({
+        url: "/user/addUser",
+        method: "post",
+        data: this.tempUser
+      }).then(() => {
         this.getList();
-      },
-      handleFilter() {
-        //查询事件
-        this.listQuery.pageNum = 1
-        this.getList()
-      },
-      getIndex($index) {
-        //表格序号
-        return (this.listQuery.pageNum - 1) * this.listQuery.pageRow + $index + 1
-      },
-      showCreate() {
-        //显示新增对话框
-        this.tempUser.username = "";
-        this.tempUser.password = "";
-        this.tempUser.nickname = "";
-        this.tempUser.roleId = "";
-        this.tempUser.userId = "";
-        this.dialogStatus = "create"
-        this.dialogFormVisible = true
-      },
-      showUpdate($index) {
-        let user = this.list[$index];
-        this.tempUser.username = user.username;
-        this.tempUser.nickname = user.nickname;
-        this.tempUser.roleId = user.roleId;
-        this.tempUser.userId = user.userId;
-        this.tempUser.deleteStatus = '1';
-        this.tempUser.password = '';
-        this.dialogStatus = "update"
-        this.dialogFormVisible = true
-      },
-      createUser() {
-        //添加新用户
-        this.api({
-          url: "/user/addUser",
-          method: "post",
-          data: this.tempUser
-        }).then(() => {
-          this.getList();
-          this.dialogFormVisible = false
+        this.dialogFormVisible = false
+      })
+    },
+    updateUser() {
+      if (!this.validate(false)) return
+      //修改用户信息
+      let _vue = this;
+      this.api({
+        url: "/user/updateUser",
+        method: "post",
+        data: this.tempUser
+      }).then(() => {
+        let msg = "修改成功";
+        this.dialogFormVisible = false
+        this.$message({
+          message: msg,
+          type: 'success',
+          duration: 1000,
+          onClose: () => {
+            _vue.getList();
+          }
         })
-      },
-      updateUser() {
-        //修改用户信息
-        let _vue = this;
-        this.api({
+      })
+    },
+    removeUser($index) {
+      let _vue = this;
+      this.$confirm('确定删除此用户?', '提示', {
+        confirmButtonText: '确定',
+        showCancelButton: false,
+        type: 'warning'
+      }).then(() => {
+        let user = _vue.list[$index];
+        user.deleteStatus = '2';
+        user.roleIds = user.roles.map(x => x.roleId)
+        _vue.api({
           url: "/user/updateUser",
           method: "post",
-          data: this.tempUser
+          data: user
         }).then(() => {
-          let msg = "修改成功";
-          this.dialogFormVisible = false
-          if (this.userId === this.tempUser.userId) {
-            msg = '修改成功,部分信息重新登录后生效'
-          }
-          this.$message({
-            message: msg,
-            type: 'success',
-            duration: 1 * 1000,
-            onClose: () => {
-              _vue.getList();
-            }
-          })
+          _vue.getList()
+        }).catch(() => {
+          _vue.$message.error("删除失败")
         })
-      },
-      removeUser($index) {
-        let _vue = this;
-        this.$confirm('确定删除此用户?', '提示', {
-          confirmButtonText: '确定',
-          showCancelButton: false,
-          type: 'warning'
-        }).then(() => {
-          let user = _vue.list[$index];
-          user.deleteStatus = '2';
-          _vue.api({
-            url: "/user/updateUser",
-            method: "post",
-            data: user
-          }).then(() => {
-            _vue.getList()
-          }).catch(() => {
-            _vue.$message.error("删除失败")
-          })
-        })
-      },
-    }
+      })
+    },
   }
+}
 </script>

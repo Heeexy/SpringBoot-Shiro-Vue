@@ -42,6 +42,7 @@ public class UserService {
             return CommonUtil.errorJson(ErrorEnum.E_10009);
         }
         userDao.addUser(jsonObject);
+        userDao.batchAddUserRole(jsonObject);
         return CommonUtil.successJson();
     }
 
@@ -59,6 +60,8 @@ public class UserService {
      */
     public JSONObject updateUser(JSONObject jsonObject) {
         userDao.updateUser(jsonObject);
+        userDao.removeUserAllRole(jsonObject.getIntValue("userId"));
+        userDao.batchAddUserRole(jsonObject);
         return CommonUtil.successJson();
     }
 

@@ -16,34 +16,34 @@ import java.util.List;
 @Service
 public class ArticleService {
 
-	@Autowired
-	private ArticleDao articleDao;
+    @Autowired
+    private ArticleDao articleDao;
 
-	/**
-	 * 新增文章
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	public JSONObject addArticle(JSONObject jsonObject) {
-		articleDao.addArticle(jsonObject);
-		return CommonUtil.successJson();
-	}
+    /**
+     * 新增文章
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public JSONObject addArticle(JSONObject jsonObject) {
+        articleDao.addArticle(jsonObject);
+        return CommonUtil.successJson();
+    }
 
-	/**
-	 * 文章列表
-	 */
-	public JSONObject listArticle(JSONObject jsonObject) {
-		CommonUtil.fillPageParam(jsonObject);
-		int count = articleDao.countArticle(jsonObject);
-		List<JSONObject> list = articleDao.listArticle(jsonObject);
-		return CommonUtil.successPage(jsonObject, list, count);
-	}
+    /**
+     * 文章列表
+     */
+    public JSONObject listArticle(JSONObject jsonObject) {
+        CommonUtil.fillPageParam(jsonObject);
+        int count = articleDao.countArticle(jsonObject);
+        List<JSONObject> list = articleDao.listArticle(jsonObject);
+        return CommonUtil.successPage(jsonObject, list, count);
+    }
 
-	/**
-	 * 更新文章
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	public JSONObject updateArticle(JSONObject jsonObject) {
-		articleDao.updateArticle(jsonObject);
-		return CommonUtil.successJson();
-	}
+    /**
+     * 更新文章
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public JSONObject updateArticle(JSONObject jsonObject) {
+        articleDao.updateArticle(jsonObject);
+        return CommonUtil.successJson();
+    }
 }
