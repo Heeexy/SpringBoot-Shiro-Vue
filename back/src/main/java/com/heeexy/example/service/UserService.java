@@ -59,6 +59,8 @@ public class UserService {
      * 修改用户
      */
     public JSONObject updateUser(JSONObject jsonObject) {
+        //不允许修改管理员信息
+        if (jsonObject.getIntValue("userId") == 10001) return CommonUtil.successJson();
         userDao.updateUser(jsonObject);
         userDao.removeUserAllRole(jsonObject.getIntValue("userId"));
         if (!jsonObject.getJSONArray("roleIds").isEmpty()) {
