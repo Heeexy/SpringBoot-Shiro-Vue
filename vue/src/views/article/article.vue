@@ -18,9 +18,9 @@
       <el-table-column align="center" prop="content" label="文章" style="width: 60px;"></el-table-column>
       <el-table-column align="center" prop="createTime" label="创建时间" width="170"/>
       <el-table-column align="center" prop="updateTime" label="最近修改时间" width="170"/>
-      <el-table-column align="center" label="管理" width="200" v-permission="'article:update'" >
+      <el-table-column align="center" label="管理" width="200" >
         <template slot-scope="scope">
-          <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)">修改</el-button>
+          <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)"  v-permission="'article:update'">修改</el-button>
         </template>
       </el-table-column>
     </el-table>

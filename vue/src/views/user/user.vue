@@ -27,11 +27,11 @@
       </el-table-column>
       <el-table-column align="center" label="创建时间" prop="createTime" width="170"></el-table-column>
       <el-table-column align="center" label="最近修改时间" prop="updateTime" width="170"></el-table-column>
-      <el-table-column align="center" label="管理" width="220" v-permission="'user:update'">
+      <el-table-column align="center" label="管理" width="220" >
         <template slot-scope="scope">
-          <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)">修改</el-button>
-          <el-button type="danger" icon="delete" v-if="scope.row.userId!=userId "
-                     @click="removeUser(scope.$index)">删除
+          <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-permission="'user:update'">修改</el-button>
+          <el-button type="danger" icon="delete" v-if="scope.row.userId!==userId "
+                     @click="removeUser(scope.$index)" v-permission="'user:update'">删除
           </el-button>
         </template>
       </el-table-column>
