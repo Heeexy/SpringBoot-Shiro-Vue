@@ -143,7 +143,6 @@ CREATE TABLE `sys_user` (
   `username` varchar(255) DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
-  `role_id` int(11) DEFAULT '0' COMMENT '角色ID',
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效  1有效  2无效',
@@ -154,11 +153,11 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (10003, 'admin', '123456', '超级用户', 2, '2017-10-30 11:52:38', '2021-05-08 23:26:56', '1');
-INSERT INTO `sys_user` VALUES (10004, 'user', '123456', '莎士比亚😘', 2, '2017-10-30 16:13:02', '2021-05-08 16:11:13', '1');
-INSERT INTO `sys_user` VALUES (10005, 'aaa', '123456', '🌹', 1, '2017-11-15 14:02:56', '2021-05-08 23:26:23', '1');
-INSERT INTO `sys_user` VALUES (10007, 'test', '123456', '就看看列表', 3, '2017-11-22 16:29:41', '2021-05-08 23:28:44', '2');
-INSERT INTO `sys_user` VALUES (10008, 'sa', '1', '😯', 0, '2021-05-08 23:21:54', '2021-05-08 23:26:32', '1');
+INSERT INTO `sys_user` VALUES (10003, 'admin', '123456', '超级用户', '2017-10-30 11:52:38', '2021-05-08 23:26:56', '1');
+INSERT INTO `sys_user` VALUES (10004, 'user', '123456', '莎士比亚😘', '2017-10-30 16:13:02', '2021-05-08 16:11:13', '1');
+INSERT INTO `sys_user` VALUES (10005, 'aaa', '123456', '🌹', '2017-11-15 14:02:56', '2021-05-08 23:26:23', '1');
+INSERT INTO `sys_user` VALUES (10007, 'test', '123456', '就看看列表', '2017-11-22 16:29:41', '2021-05-08 23:28:44', '2');
+INSERT INTO `sys_user` VALUES (10008, 'sa', '1', '😯', '2021-05-08 23:21:54', '2021-05-08 23:26:32', '1');
 COMMIT;
 
 -- ----------------------------

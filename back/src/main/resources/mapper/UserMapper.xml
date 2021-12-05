@@ -155,10 +155,10 @@
     <select id="getRoleAllInfo" resultMap="aRole">
         SELECT r.id        roleId,
                r.role_name roleName,
-               u.id        userId,
+               ur.user_id  userId,
                p.id        permissionId
         FROM sys_role r
-                 LEFT JOIN sys_user u ON r.id = u.role_id AND u.delete_status = '1'
+                 LEFT JOIN sys_user_role ur ON r.id = ur.role_id
                  LEFT JOIN sys_role_permission rp ON r.id = rp.role_id AND rp.delete_status = '1'
                  LEFT JOIN sys_permission p ON rp.permission_id = p.id
         WHERE r.id = #{roleId}
