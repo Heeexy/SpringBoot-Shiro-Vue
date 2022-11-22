@@ -108,7 +108,7 @@ public class UserService {
         JSONObject roleInfo = userDao.getRoleAllInfo(jsonObject);
         Set<Integer> oldPerms = (Set<Integer>) roleInfo.get("permissionIds");
         //修改角色名称
-        dealRoleName(jsonObject, roleInfo);
+        updateRoleName(jsonObject, roleInfo);
         //添加新权限
         saveNewPermission(roleId, newPerms, oldPerms);
         //移除旧的不再拥有的权限
@@ -119,7 +119,7 @@ public class UserService {
     /**
      * 修改角色名称
      */
-    private void dealRoleName(JSONObject paramJson, JSONObject roleInfo) {
+    private void updateRoleName(JSONObject paramJson, JSONObject roleInfo) {
         String roleName = paramJson.getString("roleName");
         if (!roleName.equals(roleInfo.getString("roleName"))) {
             userDao.updateRoleName(paramJson);
@@ -160,15 +160,14 @@ public class UserService {
      * 删除角色
      */
     @Transactional(rollbackFor = Exception.class)
-    @SuppressWarnings("unchecked")
     public JSONObject deleteRole(JSONObject jsonObject) {
-        JSONObject roleInfo = userDao.getRoleAllInfo(jsonObject);
-        List<JSONObject> users = (List<JSONObject>) roleInfo.get("users");
-        if (users != null && users.size() > 0) {
+        String roleId = jsonObject.getString("roleId");
+        int userCount = userDao.countRoleUser(roleId);
+        if (userCount > 0) {
             return CommonUtil.errorJson(ErrorEnum.E_10008);
         }
-        userDao.removeRole(jsonObject);
-        userDao.removeRoleAllPermission(jsonObject);
+        userDao.removeRole(roleId);
+        userDao.removeRoleAllPermission(roleId);
         return CommonUtil.successJson();
     }
 }

@@ -121,7 +121,7 @@
         </collection>
     </resultMap>
     <select id="listAllPermission" resultMap="permissionMap">
-        SELECT p.id                  id,
+        SELECT p.id,
                p.menu_name           menuName,
                p.permission_name     permissionName,
                p.required_permission requiredPerm
@@ -145,9 +145,6 @@
     <resultMap id="aRole" type="com.heeexy.example.util.model.One2Many">
         <id column="roleId" property="roleId"/>
         <result column="roleName" property="roleName"/>
-        <collection property="users" ofType="com.alibaba.fastjson.JSONObject">
-            <id column="userId" property="userId"/>
-        </collection>
         <collection property="permissionIds" ofType="Integer">
             <id column="permissionId" property="permissionId"/>
         </collection>
@@ -155,13 +152,19 @@
     <select id="getRoleAllInfo" resultMap="aRole">
         SELECT r.id        roleId,
                r.role_name roleName,
-               ur.user_id  userId,
                p.id        permissionId
         FROM sys_role r
-                 LEFT JOIN sys_user_role ur ON r.id = ur.role_id
                  LEFT JOIN sys_role_permission rp ON r.id = rp.role_id AND rp.delete_status = '1'
                  LEFT JOIN sys_permission p ON rp.permission_id = p.id
         WHERE r.id = #{roleId}
+    </select>
+
+    <select id="countRoleUser" resultType="Integer">
+        select count(0)
+        from sys_user_role ur
+                 inner join sys_user u on ur.user_id = u.id
+        where ur.role_id = #{roleId}
+          and u.delete_status = '1'
     </select>
 
     <update id="removeRole">

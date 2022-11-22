@@ -86,12 +86,17 @@ public interface UserDao {
     JSONObject getRoleAllInfo(JSONObject jsonObject);
 
     /**
+     * 统计角色下有多少个有效用户
+     */
+    int countRoleUser(@Param("roleId") String roleId);
+
+    /**
      * 删除角色
      */
-    int removeRole(JSONObject jsonObject);
+    int removeRole(@Param("roleId") String roleId);
 
     /**
      * 删除本角色全部权限
      */
-    int removeRoleAllPermission(JSONObject jsonObject);
+    int removeRoleAllPermission(@Param("roleId") String roleId);
 }

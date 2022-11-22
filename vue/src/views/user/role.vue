@@ -218,22 +218,16 @@
       },
       removeRole($index) {
         let _vue = this;
-        this.$confirm('确定删除此角色?', '提示', {
-          confirmButtonText: '确定',
-          showCancelButton: false,
-          type: 'warning'
-        }).then(() => {
-          let role = _vue.list[$index];
-          _vue.api({
+        let role = _vue.list[$index];
+        _vue.api({
             url: "/user/deleteRole",
             method: "post",
             data: {
               roleId: role.roleId
             }
-          }).then(() => {
-            _vue.getList()
-          }).catch(e => {
-          })
+        }).then(() => {
+            _vue.list.splice($index,1);
+        }).catch(e => {
         })
       },
       isMenuNone(_index) {
