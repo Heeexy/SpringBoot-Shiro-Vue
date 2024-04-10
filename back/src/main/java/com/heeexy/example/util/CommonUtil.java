@@ -6,6 +6,8 @@ import com.heeexy.example.util.constants.Constants;
 import com.heeexy.example.util.constants.ErrorEnum;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -15,7 +17,14 @@ import java.util.List;
  * @date: 2017/10/24 10:12
  */
 public class CommonUtil {
-
+    public static String dateFormat(Date date, String format) {
+        // Java中正确的时间格式化字符串
+        SimpleDateFormat formatter = new SimpleDateFormat(format.replace("%Y", "yyyy")
+                .replace("%m", "MM")
+                .replace("%d", "dd")
+                .replace("%T", "HH:mm:ss"));
+        return formatter.format(date);
+    }
     /**
      * 返回一个info为空对象的成功消息的json
      */

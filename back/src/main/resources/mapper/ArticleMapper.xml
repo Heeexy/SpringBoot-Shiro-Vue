@@ -15,7 +15,14 @@
         WHERE w.delete_status = '1'
     </select>
 
-    <select id="listArticle" resultType="com.alibaba.fastjson.JSONObject">
+
+    <resultMap id="articleMap" type="com.heeexy.example.util.model.One2Many">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+    </resultMap>
+    <select id="listArticle" resultMap="articleMap">
         SELECT w.id,
                w.content,
                date_format(w.create_time, '%Y.%m.%d %T') createTime,
