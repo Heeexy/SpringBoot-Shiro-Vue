@@ -42,16 +42,16 @@ INSERT INTO `sys_role_permission` VALUES (20, 4, 101, '2021-05-08 23:21:42', '20
 INSERT INTO `sys_role_permission` VALUES (21, 4, 102, '2021-05-08 23:21:42', '2021-05-08 23:21:42', '1');
 INSERT INTO `sys_role_permission` VALUES (22, 4, 103, '2021-05-08 23:21:42', '2021-05-08 23:21:42', '1');
 
-INSERT INTO `sys_user` VALUES (10003, 'admin', '123456', '超级用户', '2017-10-30 11:52:38', '2021-05-08 23:26:56', '1');
+INSERT INTO `sys_user` VALUES (10001, 'admin', '123456', '超级用户', '2017-10-30 11:52:38', '2021-05-08 23:26:56', '1');
 INSERT INTO `sys_user` VALUES (10004, 'user', '123456', '莎士比亚😘', '2017-10-30 16:13:02', '2021-05-08 16:11:13', '1');
 INSERT INTO `sys_user` VALUES (10005, 'aaa', '123456', '🌹', '2017-11-15 14:02:56', '2021-05-08 23:26:23', '1');
 INSERT INTO `sys_user` VALUES (10007, 'test', '123456', '就看看列表', '2017-11-22 16:29:41', '2021-05-08 23:28:44', '2');
 INSERT INTO `sys_user` VALUES (10008, 'sa', '1', '😯', '2021-05-08 23:21:54', '2021-05-08 23:26:32', '1');
 
+INSERT INTO `sys_user_role` VALUES (1, 10001, 1);
 INSERT INTO `sys_user_role` VALUES (3, 10004, 2);
 INSERT INTO `sys_user_role` VALUES (4, 10004, 3);
 INSERT INTO `sys_user_role` VALUES (9, 10005, 1);
 INSERT INTO `sys_user_role` VALUES (10, 10005, 2);
 INSERT INTO `sys_user_role` VALUES (11, 10008, 4);
-INSERT INTO `sys_user_role` VALUES (12, 10003, 1);
 INSERT INTO `sys_user_role` VALUES (13, 10007, 1);

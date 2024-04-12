@@ -56,7 +56,7 @@
         </foreach>
     </insert>
 
-    <select id="getAllRoles" resultType="com.alibaba.fastjson.JSONObject">
+    <select id="getAllRoles" resultMap="roleMap">
         SELECT id        roleId,
                role_name roleName
         FROM sys_role
