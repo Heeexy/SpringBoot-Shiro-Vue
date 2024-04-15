@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * @author: heeexy
@@ -23,6 +24,10 @@ public class CommonUtil {
                 .replace("%m", "MM")
                 .replace("%d", "dd")
                 .replace("%T", "HH:mm:ss"));
+        // 设置时区为北京时间，即 UTC+8
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
+        // 返回格式化的日期字符串
         return formatter.format(date);
     }
     /**

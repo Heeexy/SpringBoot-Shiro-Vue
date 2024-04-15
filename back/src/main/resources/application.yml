@@ -3,7 +3,7 @@ spring:
      active: local
   datasource:
     initialization-mode: always
-    url: jdbc:h2:mem:example;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:example;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=SET TIME ZONE 'Asia/Shanghai'
     driverClassName: org.h2.Driver
     username: sa
     password:

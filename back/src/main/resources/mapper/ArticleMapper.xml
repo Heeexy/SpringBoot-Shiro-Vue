@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.heeexy.example.dao.ArticleDao">
 
-    <insert id="addArticle" parameterType="com.alibaba.fastjson.JSONObject">
+    <insert id="addArticle" parameterType="com.alibaba.fastjson.JSONObject"  useGeneratedKeys="true" keyProperty="id">
         INSERT INTO article
             (content)
         VALUES (#{content})
