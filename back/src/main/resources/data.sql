@@ -81,7 +81,7 @@ INSERT INTO `sys_role_permission` (role_id, permission_id, create_time, update_t
 VALUES (4, 103, '2021-05-08 23:21:42', '2021-05-08 23:21:42', '1');
 
 INSERT INTO `sys_user` (id, username, password, nickname, create_time, update_time, delete_status)
-VALUES (10003, 'admin', '123456', '超级用户', '2017-10-30 11:52:38', '2021-05-08 23:26:56', '1');
+VALUES (10001, 'admin', '123456', '超级用户', '2017-10-30 11:52:38', '2021-05-08 23:26:56', '1');
 INSERT INTO `sys_user` (id, username, password, nickname, create_time, update_time, delete_status)
 VALUES (10004, 'user', '123456', '莎士比亚😘', '2017-10-30 16:13:02', '2021-05-08 16:11:13', '1');
 INSERT INTO `sys_user` (id, username, password, nickname, create_time, update_time, delete_status)
@@ -102,7 +102,7 @@ VALUES (100000, 10005, 2);
 INSERT INTO `sys_user_role`
 VALUES (110000, 10008, 4);
 INSERT INTO `sys_user_role`
-VALUES (120000, 10003, 1);
+VALUES (120000, 10001, 1);
 INSERT INTO `sys_user_role`
 VALUES (130000, 10007, 1);
 

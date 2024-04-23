@@ -60,7 +60,7 @@ public class UserService {
      */
     public JSONObject updateUser(JSONObject jsonObject) {
         //不允许修改管理员信息
-        if (jsonObject.getIntValue("userId") == 10001) return CommonUtil.successJson();
+        if (jsonObject.getIntValue("userId") == 10003) return CommonUtil.successJson();
         userDao.updateUser(jsonObject);
         userDao.removeUserAllRole(jsonObject.getIntValue("userId"));
         if (!jsonObject.getJSONArray("roleIds").isEmpty()) {
@@ -162,6 +162,9 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public JSONObject deleteRole(JSONObject jsonObject) {
         String roleId = jsonObject.getString("roleId");
+        if (roleId.equals("1")) {
+            return CommonUtil.errorJson(ErrorEnum.E_10011);
+        }
         int userCount = userDao.countRoleUser(roleId);
         if (userCount > 0) {
             return CommonUtil.errorJson(ErrorEnum.E_10008);
