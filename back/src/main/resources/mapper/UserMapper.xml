@@ -77,6 +77,7 @@
             , password = #{password}
         </if>
         , delete_status = #{deleteStatus}
+        , update_time   = NOW()
         WHERE id = #{userId} and id != 10001
     </update>
     <resultMap id="roleMap" type="com.heeexy.example.util.model.One2Many">
@@ -170,12 +171,14 @@
     <update id="removeRole">
         UPDATE sys_role
         SET delete_status = '2'
+          , update_time   = NOW()
         WHERE id = #{roleId}
           and id != 1
     </update>
     <update id="removeRoleAllPermission">
         UPDATE sys_role_permission
         SET delete_status = '2'
+          , update_time   = NOW()
         WHERE role_id = #{roleId}
     </update>
 
@@ -183,6 +186,7 @@
         UPDATE sys_role_permission
         SET
         delete_status = '2'
+        , update_time   = NOW()
         WHERE role_id = #{roleId}
         AND permission_id in (
         <foreach collection="permissions" item="item" index="index" separator=",">
@@ -193,6 +197,7 @@
     <update id="updateRoleName">
         UPDATE sys_role
         SET role_name = #{roleName}
+          , update_time   = NOW()
         WHERE id = #{roleId}
     </update>
     <select id="queryExistUsername" resultType="int">

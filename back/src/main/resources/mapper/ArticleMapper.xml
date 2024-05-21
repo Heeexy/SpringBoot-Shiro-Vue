@@ -36,6 +36,7 @@
     <update id="updateArticle" parameterType="com.alibaba.fastjson.JSONObject">
         UPDATE article
         SET content = #{content}
+          , update_time   = NOW()
         WHERE id = #{id}
     </update>
 
